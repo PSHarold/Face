@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		50D2EEF7B73C9C62B3A33F0B /* Pods_Face.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4603B3CA0CB00C252E49F22 /* Pods_Face.framework */; };
+		F21C90B51CB91E19008570D5 /* PostedAskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21C90B41CB91E19008570D5 /* PostedAskTableViewController.swift */; };
+		F21C90B71CB9269C008570D5 /* NewAskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21C90B61CB9269C008570D5 /* NewAskTableViewController.swift */; };
+		F21C90B91CB92827008570D5 /* PopupPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21C90B81CB92827008570D5 /* PopupPickerView.swift */; };
+		F26A46221CBA3DF400AB163C /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26A46211CBA3DF400AB163C /* MeTableViewController.swift */; };
 		F2754A9D1CB24D8000CDE92E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2754A9C1CB24D8000CDE92E /* AppDelegate.swift */; };
 		F2754AA91CB24D8000CDE92E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2754AA71CB24D8000CDE92E /* LaunchScreen.storyboard */; };
 		F2754AB11CB24DAF00CDE92E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2754AB01CB24DAF00CDE92E /* Main.storyboard */; };
@@ -35,12 +39,22 @@
 		F2754AE61CB27AB200CDE92E /* StudentCourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2754AE51CB27AB100CDE92E /* StudentCourseTableViewController.swift */; };
 		F2754AE81CB27D2B00CDE92E /* ShowFacesPreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2754AE71CB27D2B00CDE92E /* ShowFacesPreViewController.swift */; };
 		F2754AEA1CB284E900CDE92E /* TakePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2754AE91CB284E900CDE92E /* TakePhotoViewController.swift */; };
+		F285DDC21CBA245A007435E8 /* AbsenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F285DDC11CBA245A007435E8 /* AbsenceTableViewController.swift */; };
+		F285DDC41CBA25C7007435E8 /* AttendanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F285DDC31CBA25C7007435E8 /* AttendanceTableViewController.swift */; };
+		F296E06A1CB7C95B00825894 /* NewStatusAsksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296E0691CB7C95B00825894 /* NewStatusAsksTableViewController.swift */; };
+		F296E06D1CB7CA1100825894 /* NewStatusAskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296E06B1CB7CA1100825894 /* NewStatusAskTableViewCell.swift */; };
+		F296E06E1CB7CA1100825894 /* NewStatusAskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F296E06C1CB7CA1100825894 /* NewStatusAskTableViewCell.xib */; };
+		F296E0701CB7D34B00825894 /* AskForLeaveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296E06F1CB7D34B00825894 /* AskForLeaveTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		81B18C14345523BE748C7B25 /* Pods-Face.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Face.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Face/Pods-Face.debug.xcconfig"; sourceTree = "<group>"; };
 		C5861AFDBB1933DA8D5E07B6 /* Pods-Face.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Face.release.xcconfig"; path = "Pods/Target Support Files/Pods-Face/Pods-Face.release.xcconfig"; sourceTree = "<group>"; };
 		E4603B3CA0CB00C252E49F22 /* Pods_Face.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Face.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F21C90B41CB91E19008570D5 /* PostedAskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostedAskTableViewController.swift; sourceTree = "<group>"; };
+		F21C90B61CB9269C008570D5 /* NewAskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAskTableViewController.swift; sourceTree = "<group>"; };
+		F21C90B81CB92827008570D5 /* PopupPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPickerView.swift; sourceTree = "<group>"; };
+		F26A46211CBA3DF400AB163C /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTableViewController.swift; sourceTree = "<group>"; };
 		F2754A991CB24D8000CDE92E /* Face.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Face.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2754A9C1CB24D8000CDE92E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2754AA81CB24D8000CDE92E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -72,6 +86,12 @@
 		F2754AE51CB27AB100CDE92E /* StudentCourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentCourseTableViewController.swift; sourceTree = "<group>"; };
 		F2754AE71CB27D2B00CDE92E /* ShowFacesPreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFacesPreViewController.swift; sourceTree = "<group>"; };
 		F2754AE91CB284E900CDE92E /* TakePhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePhotoViewController.swift; sourceTree = "<group>"; };
+		F285DDC11CBA245A007435E8 /* AbsenceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbsenceTableViewController.swift; sourceTree = "<group>"; };
+		F285DDC31CBA25C7007435E8 /* AttendanceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceTableViewController.swift; sourceTree = "<group>"; };
+		F296E0691CB7C95B00825894 /* NewStatusAsksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewStatusAsksTableViewController.swift; sourceTree = "<group>"; };
+		F296E06B1CB7CA1100825894 /* NewStatusAskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewStatusAskTableViewCell.swift; sourceTree = "<group>"; };
+		F296E06C1CB7CA1100825894 /* NewStatusAskTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewStatusAskTableViewCell.xib; sourceTree = "<group>"; };
+		F296E06F1CB7D34B00825894 /* AskForLeaveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AskForLeaveTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +144,9 @@
 		F2754A9B1CB24D8000CDE92E /* Face */ = {
 			isa = PBXGroup;
 			children = (
+				F285DDC11CBA245A007435E8 /* AbsenceTableViewController.swift */,
 				F2754A9C1CB24D8000CDE92E /* AppDelegate.swift */,
+				F296E06F1CB7D34B00825894 /* AskForLeaveTableViewController.swift */,
 				F2754AB51CB24E3500CDE92E /* CourseActivityButton.swift */,
 				F2754AB61CB24E3500CDE92E /* Errors.swift */,
 				F2754AD01CB2515A00CDE92E /* Face-Bridging-Header.h */,
@@ -134,13 +156,20 @@
 				F2754AAA1CB24D8000CDE92E /* Info.plist */,
 				F2754AA71CB24D8000CDE92E /* LaunchScreen.storyboard */,
 				F2754AB01CB24DAF00CDE92E /* Main.storyboard */,
+				F26A46211CBA3DF400AB163C /* MeTableViewController.swift */,
+				F285DDC31CBA25C7007435E8 /* AttendanceTableViewController.swift */,
 				F2754AD11CB2515B00CDE92E /* MBProgressHUD.h */,
 				F2754AD21CB2515B00CDE92E /* MBProgressHUD.m */,
+				F21C90B61CB9269C008570D5 /* NewAskTableViewController.swift */,
+				F296E0691CB7C95B00825894 /* NewStatusAsksTableViewController.swift */,
+				F296E06B1CB7CA1100825894 /* NewStatusAskTableViewCell.swift */,
+				F296E06C1CB7CA1100825894 /* NewStatusAskTableViewCell.xib */,
 				F2754AD61CB2521A00CDE92E /* PhotoGallery */,
+				F21C90B81CB92827008570D5 /* PopupPickerView.swift */,
+				F21C90B41CB91E19008570D5 /* PostedAskTableViewController.swift */,
 				F2754AE71CB27D2B00CDE92E /* ShowFacesPreViewController.swift */,
 				F2754ACC1CB2512B00CDE92E /* Student.swift */,
 				F2754AB21CB24E0600CDE92E /* StudentAuthenticationHelper.swift */,
-				F2754AE91CB284E900CDE92E /* TakePhotoViewController.swift */,
 				F2754ABB1CB24E3500CDE92E /* StudentCourse.swift */,
 				F2754ABC1CB24E3500CDE92E /* StudentCourseHelper.swift */,
 				F2754AE51CB27AB100CDE92E /* StudentCourseTableViewController.swift */,
@@ -148,6 +177,7 @@
 				F2754ABE1CB24E3500CDE92E /* StudentNotificationContentTableViewController.swift */,
 				F2754ABF1CB24E3500CDE92E /* StudentNotificationsTableViewController.swift */,
 				F2754AC01CB24E3500CDE92E /* StudentNotificationViewController.swift */,
+				F2754AE91CB284E900CDE92E /* TakePhotoViewController.swift */,
 				F2754ACE1CB2513000CDE92E /* Teacher.swift */,
 				F2754AD41CB251B800CDE92E /* TimesAndRooms.swift */,
 			);
@@ -230,6 +260,7 @@
 			files = (
 				F2754AB11CB24DAF00CDE92E /* Main.storyboard in Resources */,
 				F2754AE21CB252A700CDE92E /* Images.xcassets in Resources */,
+				F296E06E1CB7CA1100825894 /* NewStatusAskTableViewCell.xib in Resources */,
 				F2754AA91CB24D8000CDE92E /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,14 +322,19 @@
 			files = (
 				F2754AC91CB24E3500CDE92E /* StudentNotificationContentTableViewController.swift in Sources */,
 				F2754AE01CB2524800CDE92E /* SinglePhotoViewController.swift in Sources */,
+				F21C90B71CB9269C008570D5 /* NewAskTableViewController.swift in Sources */,
 				F2754AC31CB24E3500CDE92E /* Generals.swift in Sources */,
 				F2754AC71CB24E3500CDE92E /* StudentCourseHelper.swift in Sources */,
 				F2754AD51CB251B800CDE92E /* TimesAndRooms.swift in Sources */,
 				F2754AC21CB24E3500CDE92E /* Errors.swift in Sources */,
+				F21C90B51CB91E19008570D5 /* PostedAskTableViewController.swift in Sources */,
 				F2754ADD1CB2524800CDE92E /* PhotoCollectionViewCell.swift in Sources */,
 				F2754ACD1CB2512B00CDE92E /* Student.swift in Sources */,
+				F296E06D1CB7CA1100825894 /* NewStatusAskTableViewCell.swift in Sources */,
 				F2754ACF1CB2513000CDE92E /* Teacher.swift in Sources */,
 				F2754AE61CB27AB200CDE92E /* StudentCourseTableViewController.swift in Sources */,
+				F296E06A1CB7C95B00825894 /* NewStatusAsksTableViewController.swift in Sources */,
+				F285DDC21CBA245A007435E8 /* AbsenceTableViewController.swift in Sources */,
 				F2754AC81CB24E3500CDE92E /* StudentLoginViewController.swift in Sources */,
 				F2754AD31CB2515B00CDE92E /* MBProgressHUD.m in Sources */,
 				F2754AE81CB27D2B00CDE92E /* ShowFacesPreViewController.swift in Sources */,
@@ -308,10 +344,14 @@
 				F2754AC11CB24E3500CDE92E /* CourseActivityButton.swift in Sources */,
 				F2754ADE1CB2524800CDE92E /* PhotoGalleryViewController.swift in Sources */,
 				F2754ACA1CB24E3500CDE92E /* StudentNotificationsTableViewController.swift in Sources */,
+				F21C90B91CB92827008570D5 /* PopupPickerView.swift in Sources */,
 				F2754AE41CB2538700CDE92E /* FaceHelper.swift in Sources */,
+				F26A46221CBA3DF400AB163C /* MeTableViewController.swift in Sources */,
 				F2754ADF1CB2524800CDE92E /* SinglePhotoCollectionViewCell.swift in Sources */,
 				F2754AC61CB24E3500CDE92E /* StudentCourse.swift in Sources */,
+				F285DDC41CBA25C7007435E8 /* AttendanceTableViewController.swift in Sources */,
 				F2754AEA1CB284E900CDE92E /* TakePhotoViewController.swift in Sources */,
+				F296E0701CB7D34B00825894 /* AskForLeaveTableViewController.swift in Sources */,
 				F2754AB31CB24E0600CDE92E /* StudentAuthenticationHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

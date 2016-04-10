@@ -12,7 +12,7 @@ import SwiftyJSON
 import Alamofire
 import UIKit
 var alamofireManager: Alamofire.Manager!
-let BASE_URL = TARGET_IPHONE_SIMULATOR == 0 ? "http://10.16.82.250  :5000" : "http://localhost:5000"
+let BASE_URL = TARGET_IPHONE_SIMULATOR == 0 ? "http://192.168.2.1:5000" : "http://localhost:5000"
 //let BASE_URL = "http://localhost:5000"
 let ROLE_FOR_TEACHER = 1
 let ROLE_FOR_STUDENT = 2
@@ -35,9 +35,20 @@ enum RequestType: String{
     case ADD_FACE = "/user/add_face"
     case TEST_FACE = "/user/test_face"
     case DELETE_FACE = "/user/delete_face"
+    case GET_ASKS_FOR_LEAVE = "/course/my_asks_for_leave"
+    case ASK_FOR_LEAVE = "/course/ask_for_leave"
+    case READ_NEW_STATUS_ASKS = "/course/read_new_status_ask"
+    case DELETE_ASK_FOR_LEAVE = "/course/delete_ask_for_leave"
+    case GET_MY_ABSENCE_LIST = "/course/get_absence_list"
 }
-func getRequestFor(requestType:RequestType, method:Alamofire.Method, argsOrBody:[String: AnyObject]?, headers:[String:String]?, encoding: ParameterEncoding = .JSON) -> Request{
-    return alamofireManager.request(method, BASE_URL + requestType.rawValue, parameters: argsOrBody, encoding: encoding, headers: headers)
+func getRequestFor(requestType:RequestType, method:Alamofire.Method, argsOrBody:[String: AnyObject]?, headers:[String:String]?, token: String? = nil, courseId: String? = nil, encoding: ParameterEncoding = .JSON) -> Request{
+    if token == nil{
+        return alamofireManager.request(method, BASE_URL + requestType.rawValue, parameters: argsOrBody, encoding: encoding, headers: headers)
+    }
+    else{
+        return alamofireManager.request(method, BASE_URL + requestType.rawValue + (token == nil ? "" : "?token="+token!) + (courseId == nil ? "" : "&course_id="+courseId!), parameters: argsOrBody, encoding: encoding, headers: headers)
+
+    }
     
 }
 
@@ -74,7 +85,7 @@ extension UIViewController{
         }
     }
     
-    func showError(error: CError, hideAfter: NSTimeInterval=1.0){
+    func showError(error: CError, hideAfter: NSTimeInterval=1.5){
         self.showHudWithText(error.description, mode: .Text, hideAfter: hideAfter)
     }
     

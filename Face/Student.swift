@@ -18,7 +18,7 @@ class Student {
     var courses = [StudentCourse]()
     var courseDict = [String:StudentCourse]()
     var unreadNotifications = [Notification]()
-    var untakenTests = [Notification]()
+    var newStatusAsks = [AskForLeave]()
     var genderString:String{
         get{
             if self.gender{
@@ -43,5 +43,12 @@ class Student {
             self.courses.append(course)
             self.courseDict[course.courseId] = course
         }
+        
+        for askDict in json["new_status_asks"].arrayValue{
+            self.newStatusAsks.append(AskForLeave(json: askDict))
+        }
+        
+        
+        self.courses.sortInPlace({$0.asks.count > $1.asks.count})
     }
 }

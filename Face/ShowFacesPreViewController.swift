@@ -20,19 +20,9 @@ class ShowFacesPreViewController: UIViewController {
     
  
     @IBAction func getFaces(sender: AnyObject) {
-        self.showHudWithText("正在加载")
-        self.faceHelper!.getFaceImages{
-            [unowned self]
-            error in
-            if let error = error{
-                self.showError(error)
             }
-            else{
-                self.hideHud()
-                self.performSegueWithIdentifier("ShowFaces", sender: self)
-            }
-            
-        }
+    @IBAction func backToCourseList(sender: AnyObject) {
+        self.navigationController?.tabBarController?.navigationController?.popToRootViewControllerAnimated(true)
     }
 
 }

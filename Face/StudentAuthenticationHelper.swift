@@ -44,16 +44,9 @@ class StudentAuthenticationHelper{
     
     
     
-    func getResponse(requestType: RequestType, method: Alamofire.Method, argsOrBody:[String: AnyObject], subIdRequired: Bool = false, completionHandler: ResponseHandler){
-        var argsOrBody = argsOrBody
-        argsOrBody["token"] = self.token
-        if subIdRequired{
-            let course = StudentCourse.currentCourse
-            argsOrBody["course_id"] = course.courseId
-            argsOrBody["sub_id"] = course.subId
-        }
+    func getResponse(requestType: RequestType, method: Alamofire.Method, argsOrBody:[String: AnyObject], tokenNotRequired: Bool = false, courseIdRequired: Bool = false, completionHandler: ResponseHandler){
         let encoding: ParameterEncoding = method == .POST ? .JSON : .URL
-        let request = getRequestFor(requestType, method: method, argsOrBody: argsOrBody, headers: nil, encoding: encoding)
+        let request = getRequestFor(requestType, method: method, argsOrBody: argsOrBody, headers: nil, encoding: encoding, token: (tokenNotRequired ? nil : self.token), courseId: (courseIdRequired ? StudentCourse.currentCourse.courseId : nil))
         request.responseJSON(){
             [unowned self]
             (_,_,result) in
@@ -84,13 +77,13 @@ class StudentAuthenticationHelper{
     }
     
     
-    func getResponseImage(requestType: RequestType, method: Alamofire.Method, argsOrBody:[String: AnyObject], subIdRequired: Bool = false, completionHandler: ResponseImageHandler){
+    func getResponseImage(requestType: RequestType, method: Alamofire.Method, argsOrBody:[String: AnyObject], courseIdRequired: Bool = false, completionHandler: ResponseImageHandler){
         var argsOrBody = argsOrBody
         argsOrBody["token"] = self.token
-        if subIdRequired{
+        if courseIdRequired{
             let course = StudentCourse.currentCourse
             argsOrBody["course_id"] = course.courseId
-            argsOrBody["sub_id"] = course.subId
+           
         }
         let encoding: ParameterEncoding = method == .POST ? .JSON : .URL
         let request = getRequestFor(requestType, method: method, argsOrBody: argsOrBody, headers: nil, encoding: encoding)
@@ -208,10 +201,10 @@ class StudentAuthenticationHelper{
 
     
 
-    func login(userId:String,password:String,completionHandler: (error: CError?, json: JSON?) -> Void){
+    func login(userId:String, password: String, completionHandler: (error: CError?, json: JSON?) -> Void){
         self.userId = userId
         self.password = password
-        getResponse(RequestType.LOGIN, method: .POST, argsOrBody: ["user_id":userId, "password": password, "role": 2]){
+        getResponse(RequestType.LOGIN, method: .POST, argsOrBody: ["user_id":userId, "password": password, "role": 2], tokenNotRequired: true){
             [unowned self]
             (error,json) in            
             if error != nil{
@@ -226,6 +219,19 @@ class StudentAuthenticationHelper{
             
         }
     }
+    
+    
+    func readNewStatusAsks(completionHandler: ResponseMessageHandler){
+        self.getResponse(RequestType.READ_NEW_STATUS_ASKS, method: .GET, argsOrBody: [:]){
+            error, json in
+            if error == nil{
+                StudentAuthenticationHelper.me.newStatusAsks = []
+            }
+            completionHandler(error: error)
+        }
+    }
+    
+
     
     private init(){
         

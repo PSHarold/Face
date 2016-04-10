@@ -10,8 +10,9 @@ import UIKit
 
 class StudentCourseTableViewController: UITableViewController {
     
-    var courseHelper = StudentCourseHelper.defaultHelper
-    var authHelper = StudentAuthenticationHelper.defaultHelper
+    let courseHelper = StudentCourseHelper.defaultHelper
+    let authHelper = StudentAuthenticationHelper.defaultHelper
+    var first = true
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.navigationController!.interactivePopGestureRecognizer?.enabled = false  
@@ -21,7 +22,17 @@ class StudentCourseTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if !self.first{
+            return
+        }
+        if StudentAuthenticationHelper.me.newStatusAsks.count != 0{
+            self.performSegueWithIdentifier("ShowNewStatusAsks", sender: self)
+            self.first = false
+        }
+    }
     
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -35,24 +46,16 @@ class StudentCourseTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-
-        cell.textLabel?.text = self.authHelper.me.courses[indexPath.row].name
-
+        let course = self.authHelper.me.courses[indexPath.row]
+        cell.textLabel?.text = course.name
+        let count = course.asks.count
+        cell.detailTextLabel?.text = count == 0 ? "" : "\(count)"
         return cell
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         StudentCourse.currentCourse = self.authHelper.me.courses[indexPath.row]
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.performSegueWithIdentifier("enterMain", sender: self)
-//        self.courseHelper?.getCourseDetails(StudentCourse.currentCourse){
-//            [unowned self]
-//            error in
-//            if let error = error{
-//                self.showError(error)
-//                return
-//            }
-//            
-//        }
 
     }
     

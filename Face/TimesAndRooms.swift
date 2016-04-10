@@ -36,12 +36,48 @@ class TimesAndRooms {
             }
             for (_, week):(String,JSON) in time["weeks"]{
                 period.weeks.append(week.intValue)
+
+                
             }
             period.room_id = time["room_id"].stringValue
             period.room_name = time["room_name"].stringValue
             period.period = time["period"].intValue
             self.times.append(period)
         }
+        
+    }
+    
+ 
+    
+    func getAvailableWeeks() -> [Int]{
+        var weeks = Set<Int>()
+        for period in self.times{
+            let tweeks = Set<Int>(period.weeks)
+            weeks = weeks.union(tweeks)
+        }
+        let sorted = Array<Int>(weeks)
+        return sorted.sort()
+    }
+    
+    func getAvailableDaysInWeek(weekNo: Int) -> [Int]{
+        var days = Set<Int>()
+        for period in self.times{
+            if period.weeks.contains(weekNo){
+                days = days.union(Set(period.days))
+            }
+        }
+        return Array(days).sort()
+    }
+    
+    func getAvailablePeriodInWeek(weekNo: Int, andDay dayNo:Int) -> [Int]{
+        var periods = Set<Int>()
+        for period in self.times{
+            if period.weeks.contains(weekNo) && period.days.contains(dayNo){
+                periods.insert(period.period)
+                return Array(periods).sort()
+            }
+        }
+        return Array(periods).sort()
     }
     
 }

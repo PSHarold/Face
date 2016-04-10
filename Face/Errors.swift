@@ -50,11 +50,6 @@ enum CError: Int {
     case TEST_ALREADY_EXISTS = 808
     case ROOM_ALREADY_EXISTS = 809
     
-    case SEAT_ALREADY_TAKEN = 901
-    case SEAT_ALREADY_CHOSEN = 902
-    case SEAT_ALREADY_FREE_OR_TAKEN = 903
-    case SEAT_TOKEN_EXPIRED = 904
-    case BAD_SEAT_TOKEN = 905
     case SEAT_CHOOSING_NOT_AVAILABLE_YET = 906
     case COURSE_ALREADY_BEGUN = 907
     case COURSE_IS_NOT_ON_TODAY = 908
@@ -71,7 +66,11 @@ enum CError: Int {
     case TEST_STILL_ONGOING = 933
     case YOU_HAVENT_TAKEN_THE_TEST = 934
     case BAD_STUDENT_TEST_RESULT = 935
-    
+    case ASK_FOR_LEAVE_HAS_BEEN_APPROVED = 950
+    case ASK_FOR_LEAVE_HAS_BEEN_DISAPPROVED = 951
+    case ASK_FOR_LEAVE_STILL_PENDING = 952
+    case ALREADY_CHECKED_IN = 953
+
     
     
     
@@ -139,17 +138,8 @@ enum CError: Int {
             return "测验已存在！"
         case .ROOM_ALREADY_EXISTS:
             return ""
-            
-        case .SEAT_ALREADY_TAKEN:
-            return "座位被抢走了！"
-        case .SEAT_ALREADY_CHOSEN:
-            return "你已经选了此座位！"
-        case .SEAT_ALREADY_FREE_OR_TAKEN:
-            return "座位已空！"
-        case .SEAT_TOKEN_EXPIRED:
-            return ""
-        case .BAD_SEAT_TOKEN:
-            return ""
+      
+           
         case .SEAT_CHOOSING_NOT_AVAILABLE_YET:
             return "选座还没有开始！"
         case .COURSE_ALREADY_BEGUN:
@@ -175,6 +165,11 @@ enum CError: Int {
             return "测验还未结束！"
         case .IMAGE_CONTAINS_NO_FACE:
             return "图片中找不到人脸！"
+        case .ASK_FOR_LEAVE_STILL_PENDING:
+            return "已提交过此时间段的请假！"
+        case .ASK_FOR_LEAVE_HAS_BEEN_APPROVED:
+            return "请假已经被批准了！"
+        
         default:
             return "未知错误"
         }

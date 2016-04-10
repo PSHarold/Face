@@ -12,6 +12,7 @@ import UIKit
 class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,
     UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+    @IBOutlet weak var testBarButton: UIBarButtonItem!
     // collection view cell default width, height
     var cellWidth: Int = 100
     var cellHeight: Int = 100
@@ -28,6 +29,12 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
         super.viewDidLoad()
         self.photoCollectionView.delegate = self
         self.photoCollectionView.dataSource = self
+        let label = UILabel()
+        label.text = "单击右上角添加按钮添加一张照片"
+        label.textAlignment = .Center
+        label.frame.origin.x = self.photoCollectionView.center.x
+        label.frame.origin.y = self.photoCollectionView.center.y
+        self.photoCollectionView.backgroundView = label
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -51,6 +58,15 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
        func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if self.faceHelper.faceImages.count == 0{
+            self.photoCollectionView.backgroundView?.hidden = false
+            self.testBarButton.enabled = false
+        }
+        else{
+            self.photoCollectionView.backgroundView?.hidden = true
+            self.testBarButton.enabled = true
+        }
+
         return self.faceHelper.faceImages.count
     }
     
@@ -74,11 +90,11 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     
-    @IBAction func takePhoto(sender: AnyObject) {
+    func choosePhoto(from: UIImagePickerControllerSourceType) {
         self.takePhotoType = 0
         let imagePicker =  UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .Camera
+        imagePicker.sourceType = from
         
         presentViewController(imagePicker, animated: true, completion: nil)
     }
@@ -171,6 +187,24 @@ class PhotoGalleryViewController: UIViewController, UICollectionViewDataSource, 
         // assign width to class variable
         self.cellWidth = thumbWidth
         self.cellHeight = thumbWidth
+    }
+    @IBAction func addFace(sender: AnyObject) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "从相册选择照片", style: .Default){
+            [unowned self]
+            _ in
+                self.choosePhoto(.PhotoLibrary)
+        
+            })
+        
+        alert.addAction(UIAlertAction(title: "使用摄像头拍照", style: .Default){
+            [unowned self]
+            _ in
+                self.choosePhoto(.Camera)
+            
+            })
+        alert.addAction(UIAlertAction(title: "取消", style: .Destructive, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func test_face(sender: AnyObject) {
