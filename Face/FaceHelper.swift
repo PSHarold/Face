@@ -15,6 +15,10 @@ class FaceHelper{
         }
         return _defaultHelper!
     }
+    
+    static func drop(){
+        _defaultHelper = nil
+    }
     var faceIds = [String]()
     var faceImages = [String: FaceImage]()
     var faceAcquiredCount = 0

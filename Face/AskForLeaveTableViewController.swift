@@ -96,10 +96,15 @@ class AskForLeaveTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .Delete
+        let ask = self.course.asks[indexPath.row]
+        if ask.status == .PENDING {
+            return .Delete
+        }
+        return .None
     }
     
     override func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
+       
         return "撤销申请"
     }
     

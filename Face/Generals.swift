@@ -12,10 +12,11 @@ import SwiftyJSON
 import Alamofire
 import UIKit
 var alamofireManager: Alamofire.Manager!
-let BASE_URL = TARGET_IPHONE_SIMULATOR == 0 ? "http://192.168.2.1:5000" : "http://localhost:5000"
+let BASE_URL = TARGET_IPHONE_SIMULATOR == 0 ? "http://192.168.155.2:5000" : "http://localhost:5000"
 //let BASE_URL = "http://localhost:5000"
 let ROLE_FOR_TEACHER = 1
 let ROLE_FOR_STUDENT = 2
+
 
 
 typealias ResponseHandler = (error: CError?, json: JSON!) -> Void
@@ -39,7 +40,16 @@ enum RequestType: String{
     case ASK_FOR_LEAVE = "/course/ask_for_leave"
     case READ_NEW_STATUS_ASKS = "/course/read_new_status_ask"
     case DELETE_ASK_FOR_LEAVE = "/course/delete_ask_for_leave"
-    case GET_MY_ABSENCE_LIST = "/course/get_absence_list"
+    case GET_MY_ABSENCE_LIST = "/course/get_my_absence_list"
+    case CHECK_IF_CAN_CHECK_IN = "/course/check_if_can_check_in"
+    case CHECK_IN = "/course/check_in"
+    case VERIFY_QR_CODE = "/course/verify_qr_code"
+    case MODIFY_PASSWORD = "/user/modify_password"
+    case GET_EMAIL = "/user/get_email"
+    case MODIFY_EMAIL = "/user/modify_email"
+    case RESET_PASSWORD_GET_EMAIL = "/user/reset_password_get_email"
+    case RESET_PASSWORD_CONFIRM_EMAIL = "/user/reset_password"
+    
 }
 func getRequestFor(requestType:RequestType, method:Alamofire.Method, argsOrBody:[String: AnyObject]?, headers:[String:String]?, token: String? = nil, courseId: String? = nil, encoding: ParameterEncoding = .JSON) -> Request{
     if token == nil{

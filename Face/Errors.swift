@@ -12,6 +12,7 @@ import SwiftyJSON
 enum CError: Int {
     case NETWORK_ERROR
     case NEED_TO_LOGIN_AGAIN
+    case UNKNOWN_INTERNAL_ERROR = 500
     case FACE_API_ERROR = 600
     case FORBIDDEN = 601
     case WRONG_PASSWORD = 602
@@ -22,56 +23,34 @@ enum CError: Int {
     case FIELD_MISSING = 607
     case WRONG_FIELD_TYPE = 609
     case UNKNOWN_FIELD = 608
-    case BASE64_ERROR = 620
+    case ARGUMENT_MISSING = 610
+    case BAD_IMAGE = 620
+    
+    case FACE_TRAINING_NOT_DONE = 621
     case IMAGE_CONTAINS_NO_FACE = 622
+    case EMAIL_NOT_ACTIVATED = 650
+    case WRONG_EMAIL_ADDRESS = 651
     case RESOURCE_NOT_FOUND = 700
     case USER_NOT_FOUND = 701
-    case MAIN_COURSE_NOT_FOUND = 702
     case SUB_COURSE_NOT_FOUND = 703
-    case KNOWLEDGE_POINT_NOT_FOUND = 704
-    case QUESTION_NOT_FOUND = 705
-    case NOTIFICATION_NOT_FOUND = 706
-    case SEAT_NOT_FOUND = 707
-    case TEST_NOT_FOUND = 708
-    case ROOM_NOT_FOUND = 709
-    case SCHOOL_NOT_FOUND = 710
-    case DEPARTMENT_NOT_FOUND = 711
-    case MAJOR_NOT_FOUND = 712
-    case CLASS_NOT_FOUND = 713
+    case ASK_FOR_LEAVE_NOT_FOUND = 720
     
-    case RESOURCE_ALREADY_EXISTS = 800
-    case USER_ALREADY_EXISTS = 801
-    case MAIN_COURSE_ALREADY_EXISTS = 802
-    case SUB_COURSE_ALREADY_EXISTS = 803
-    case KNOWLEDGE_POINT_ALREADY_EXISTS = 804
-    case QUESTION_ALREADY_EXISTS = 805
-    case NOTIFICATION_ALREADY_EXISTS = 806
-    case SEAT_ALREADY_EXISTS = 807
-    case TEST_ALREADY_EXISTS = 808
-    case ROOM_ALREADY_EXISTS = 809
     
-    case SEAT_CHOOSING_NOT_AVAILABLE_YET = 906
+    case CHECKING_IN_NOT_AVAILABLE = 901
     case COURSE_ALREADY_BEGUN = 907
     case COURSE_IS_NOT_ON_TODAY = 908
+    
     case COURSE_ALREADY_OVER = 909
     case COURSE_NOT_BEGUN = 910
     case YOU_ARE_TOO_LATE = 911
-    case RANDOM_TEST_NOT_SET = 920
     case YOU_DO_NOT_HAVE_THIS_COURSE = 921
-    case YOU_ARE_NOT_THE_TEACHER = 922
-    case YOU_ARE_NOT_A_STUDENT = 923
-    case TEST_EXPIRED = 930
-    case TEST_HAVENT_BEGUN = 931
-    case TEST_ALREADY_TAKEN = 932
-    case TEST_STILL_ONGOING = 933
-    case YOU_HAVENT_TAKEN_THE_TEST = 934
-    case BAD_STUDENT_TEST_RESULT = 935
+    case BAD_QR_CODE = 922
+    case QR_CODE_EXPIRED = 923
     case ASK_FOR_LEAVE_HAS_BEEN_APPROVED = 950
     case ASK_FOR_LEAVE_HAS_BEEN_DISAPPROVED = 951
     case ASK_FOR_LEAVE_STILL_PENDING = 952
     case ALREADY_CHECKED_IN = 953
-
-    
+    case FACE_DOES_NOT_MATCH = 954
     
     
     
@@ -79,9 +58,11 @@ enum CError: Int {
         switch self{
         case .NETWORK_ERROR:
             return "网络错误！"
-        case .NEED_TO_LOGIN_AGAIN:
-            return ""
-            
+
+        case .UNKNOWN_INTERNAL_ERROR:
+            return "服务器错误"
+        case .FACE_API_ERROR:
+            return "人脸识别服务器错误"
         case .FORBIDDEN:
             return "无权限！"
         case .WRONG_PASSWORD:
@@ -93,55 +74,15 @@ enum CError: Int {
             return ""
         case .USER_NOT_FOUND:
             return "用户不存在！"
-        case .MAIN_COURSE_NOT_FOUND:
-            return "找不到此课程！"
         case .SUB_COURSE_NOT_FOUND:
             return "找不到此讲台！"
-        case .KNOWLEDGE_POINT_NOT_FOUND:
-            return "找不到此知识点！"
-        case .QUESTION_NOT_FOUND:
-            return "找不到此题目！"
-        case .NOTIFICATION_NOT_FOUND:
-            return "找不到此通知！"
-        case .SEAT_NOT_FOUND:
-            return "找不到此座位！"
-        case .TEST_NOT_FOUND:
-            return "找不到此测验！"
-        case .ROOM_NOT_FOUND:
-            return "找不到此教室！"
-        case .SCHOOL_NOT_FOUND:
-            return "找不到此学院！"
-        case .DEPARTMENT_NOT_FOUND:
-            return "找不到此系！"
-        case .MAJOR_NOT_FOUND:
-            return "找不到此专业！"
-        case .CLASS_NOT_FOUND:
-            return "找不到此班级！"
-            
-        case .RESOURCE_ALREADY_EXISTS:
-            return ""
-        case .USER_ALREADY_EXISTS:
-            return "用户已存在！"
-        case .MAIN_COURSE_ALREADY_EXISTS:
-            return "课程已存在！"
-        case .SUB_COURSE_ALREADY_EXISTS:
-            return "讲台已存在！"
-        case .KNOWLEDGE_POINT_ALREADY_EXISTS:
-            return "知识点已存在！"
-        case .QUESTION_ALREADY_EXISTS:
-            return "题目已存在！"
-        case .NOTIFICATION_ALREADY_EXISTS:
-            return "通知已存在！"
-        case .SEAT_ALREADY_EXISTS:
-            return "座位已存在！"
-        case .TEST_ALREADY_EXISTS:
-            return "测验已存在！"
-        case .ROOM_ALREADY_EXISTS:
-            return ""
-      
+        case .EMAIL_NOT_ACTIVATED:
+            return "请先验证邮箱！"
+        case .WRONG_EMAIL_ADDRESS:
+            return "错误的邮箱地址！"
            
-        case .SEAT_CHOOSING_NOT_AVAILABLE_YET:
-            return "选座还没有开始！"
+        case .CHECKING_IN_NOT_AVAILABLE:
+            return "签到还没有开放！"
         case .COURSE_ALREADY_BEGUN:
             return "已经上课了！"
         case .COURSE_IS_NOT_ON_TODAY:
@@ -152,24 +93,22 @@ enum CError: Int {
             return "这节课还没有开始！"
         case .YOU_ARE_TOO_LATE:
             return "你迟到太久！"
-        case .RANDOM_TEST_NOT_SET:
-            return ""
         case .YOU_DO_NOT_HAVE_THIS_COURSE:
             return "你没有权限查看这个课程！"
-            
-        case .TEST_EXPIRED:
-            return "已截止！"
-        case .TEST_HAVENT_BEGUN:
-            return "测验还未开始！"
-        case .TEST_STILL_ONGOING:
-            return "测验还未结束！"
         case .IMAGE_CONTAINS_NO_FACE:
             return "图片中找不到人脸！"
         case .ASK_FOR_LEAVE_STILL_PENDING:
             return "已提交过此时间段的请假！"
         case .ASK_FOR_LEAVE_HAS_BEEN_APPROVED:
             return "请假已经被批准了！"
-        
+        case .ALREADY_CHECKED_IN:
+            return "已经签过到了！"
+        case .BAD_QR_CODE:
+            return "错误的二维码！"
+        case .QR_CODE_EXPIRED:
+            return "二维码过期！请重新扫描！"
+        case .FACE_DOES_NOT_MATCH:
+            return "脸部信息不匹配！"
         default:
             return "未知错误"
         }

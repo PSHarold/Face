@@ -46,6 +46,7 @@ class NewAskTableViewController: UITableViewController, PopUpPickerViewDelegate,
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if indexPath.section == 0{
+            self.reasonTextView.resignFirstResponder()
             self.pickerViewShowing = true
             self.pickerView.showPicker()
         }
@@ -63,6 +64,7 @@ class NewAskTableViewController: UITableViewController, PopUpPickerViewDelegate,
                 self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
+            self.ask.reason = self.reasonTextView.text
             self.courseHelper.askForLeave(ask, course: StudentCourse.currentCourse){
                 [unowned self]
                 error in

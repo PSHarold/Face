@@ -10,7 +10,7 @@ import UIKit
 
 class NewStatusAsksTableViewController: UITableViewController {
 
-    let me = StudentAuthenticationHelper.me
+    let me = StudentAuthenticationHelper.defaultHelper.me
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerClass(NewStatusAskTableViewCell.self, forCellReuseIdentifier: "cell")
@@ -26,7 +26,11 @@ class NewStatusAsksTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return me.newStatusAsks.count
+        let count = me.newStatusAsks.count
+        if count == 0{
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        return count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

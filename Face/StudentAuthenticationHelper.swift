@@ -16,10 +16,14 @@ class StudentAuthenticationHelper{
     
     
     static var _defaultHelper:StudentAuthenticationHelper?
-    static weak var me: Student!
+    
+   
+    
     var tokenRetryCount = 0
     let MAX_TOKEN_RETRY_COUNT = 3
     var me: Student!
+    var emailToVerify: String?
+    var userIdToReset: String?
     var userId = ""
     var password = ""
     var token = ""
@@ -29,6 +33,8 @@ class StudentAuthenticationHelper{
     var tempHeaders: [String:String]!
     var originalHandler: ResponseHandler!
     var originalImageHandler: ResponseImageHandler!
+    var currentWeekNo: Int!
+    var currentDayNo: Int!
     static var defaultHelper:StudentAuthenticationHelper{
         get{
             if _defaultHelper == nil{
@@ -38,7 +44,9 @@ class StudentAuthenticationHelper{
         }
     }
     
-    
+    static func drop(){
+        _defaultHelper = nil
+    }
     
   
     
@@ -117,8 +125,8 @@ class StudentAuthenticationHelper{
     }
     
 
-    func postImage(requestType: RequestType, image: UIImage, completionHandler: ResponseHandler){
-        Alamofire.upload(.POST, BASE_URL+requestType.rawValue+"?token=\(self.token)",
+    func postImage(requestType: RequestType, image: UIImage, courseIdRequired: Bool = false, checkInToken: String = "", completionHandler: ResponseHandler){
+        Alamofire.upload(.POST, BASE_URL+requestType.rawValue+"?token=\(self.token)"+(courseIdRequired ? "&course_id=\(StudentCourse.currentCourse.courseId)" : "")+(checkInToken == "" ? "" : "&check_in_token=\(checkInToken)"),
             headers: nil,
             multipartFormData: {
                 multipartFormData in
@@ -213,7 +221,8 @@ class StudentAuthenticationHelper{
             else{
                 self.token = json["token"].stringValue
                 self.me = Student(json: json["user"])
-                StudentAuthenticationHelper.me = self.me
+                self.currentWeekNo = json["week_no"].intValue
+                self.currentDayNo = json["day_no"].intValue
                 completionHandler(error: nil, json: json)
             }
             
@@ -225,13 +234,57 @@ class StudentAuthenticationHelper{
         self.getResponse(RequestType.READ_NEW_STATUS_ASKS, method: .GET, argsOrBody: [:]){
             error, json in
             if error == nil{
-                StudentAuthenticationHelper.me.newStatusAsks = []
+                self.me.newStatusAsks = []
             }
             completionHandler(error: error)
         }
     }
     
+    func modifyPassword(oldPassword: String, newPassword: String, completionHandler: ResponseMessageHandler){
+        self.getResponse(RequestType.MODIFY_PASSWORD, method: .GET, argsOrBody: ["old_pwd": oldPassword, "new_pwd": newPassword]){
+            error, json in
+            completionHandler(error: error)
+        }
+    }
 
+    func getEmail(completionHandler: ResponseMessageHandler) {
+        self.getResponse(RequestType.GET_EMAIL, method: .GET, argsOrBody: [:]){
+            [unowned self]
+            error, json in
+            if error == nil{
+                self.me.email = json["email"].stringValue
+                self.me.emailActivated = json["activated"].boolValue
+            }
+            completionHandler(error: error)
+        }
+    }
+    
+    func modifyEmail(newEmail: String, completionHandler: ResponseMessageHandler){
+        self.getResponse(RequestType.MODIFY_EMAIL, method: .GET, argsOrBody: ["email": newEmail]){
+            error, json in
+            completionHandler(error: error)
+        }
+        
+    }
+    
+    func requestToResetPassword(userId: String, completionHandler: ResponseMessageHandler){
+        self.userIdToReset = userId
+        self.getResponse(RequestType.RESET_PASSWORD_GET_EMAIL, method: .GET, argsOrBody: ["user_id": userId, "role": ROLE_FOR_STUDENT], tokenNotRequired: false){
+            [unowned self]
+            error, json in
+            if error == nil{
+                self.emailToVerify = json["email"].stringValue
+            }
+            completionHandler(error: error)
+        }
+    }
+    
+    func resetPasswordConfirmEmail(email: String, completionHandler: ResponseMessageHandler){
+        self.getResponse(RequestType.RESET_PASSWORD_CONFIRM_EMAIL, method: .GET, argsOrBody: ["user_id": self.userIdToReset!, "role": ROLE_FOR_STUDENT, "email": email], tokenNotRequired: false){
+            error, json in
+            completionHandler(error: error)
+        }
+    }
     
     private init(){
         

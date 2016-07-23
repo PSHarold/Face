@@ -9,12 +9,17 @@
 import UIKit
 
 class StudentCourseTableViewController: UITableViewController {
-    
     let courseHelper = StudentCourseHelper.defaultHelper
-    let authHelper = StudentAuthenticationHelper.defaultHelper
     var first = true
     override func viewDidLoad() {
         super.viewDidLoad()
+        if !self.first{
+            return
+        }
+        if StudentAuthenticationHelper.defaultHelper.me.newStatusAsks.count != 0{
+            self.performSegueWithIdentifier("ShowNewStatusAsks", sender: self)
+            self.first = false
+        }
         //self.navigationController!.interactivePopGestureRecognizer?.enabled = false  
     }
 
@@ -23,16 +28,6 @@ class StudentCourseTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if !self.first{
-            return
-        }
-        if StudentAuthenticationHelper.me.newStatusAsks.count != 0{
-            self.performSegueWithIdentifier("ShowNewStatusAsks", sender: self)
-            self.first = false
-        }
-    }
     
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -41,27 +36,26 @@ class StudentCourseTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.authHelper.me.courses.count
+        return StudentAuthenticationHelper.defaultHelper.me.courses.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        let course = self.authHelper.me.courses[indexPath.row]
+        let course = StudentAuthenticationHelper.defaultHelper.me.courses[indexPath.row]
         cell.textLabel?.text = course.name
         let count = course.asks.count
         cell.detailTextLabel?.text = count == 0 ? "" : "\(count)"
         return cell
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        StudentCourse.currentCourse = self.authHelper.me.courses[indexPath.row]
+        StudentCourse.currentCourse = StudentAuthenticationHelper.defaultHelper.me.courses[indexPath.row]
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.performSegueWithIdentifier("enterMain", sender: self)
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowNotifications"{
-            
-        }
+    @IBAction func unwindToCourseTable(segue: UIStoryboardSegue) {
+        StudentCourse.currentCourse = nil
+        StudentCourseHelper.drop()
     }
 }

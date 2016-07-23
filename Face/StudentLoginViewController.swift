@@ -15,9 +15,9 @@ class StudentLoginViewController: UIViewController {
     @IBOutlet weak var userTextfield: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     let hud = MBProgressHUD()
-    var authHelper = StudentAuthenticationHelper.defaultHelper
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.userTextfield.text = "41316014"
         self.pwdTextfield.text = "123"
          
@@ -26,7 +26,11 @@ class StudentLoginViewController: UIViewController {
         self.view.addGestureRecognizer(tapBackgroundGesture)
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBarHidden = true
+    }
     func toLoginIn(){
         self.loginButton.setTitle("登陆", forState: .Normal)
         self.loginButton.enabled = true
@@ -43,7 +47,7 @@ class StudentLoginViewController: UIViewController {
     
     @IBAction func Login(sender: AnyObject) {
         self.logingIn()
-        self.authHelper.login(userTextfield.text!,password:pwdTextfield.text!){
+        StudentAuthenticationHelper.defaultHelper.login(userTextfield.text!,password:pwdTextfield.text!){
             (error,json) in
             if let error = error{
                 self.showError(error)
@@ -52,6 +56,7 @@ class StudentLoginViewController: UIViewController {
             else{
                 //let hud = self.showHudWithText("正在加载", mode: .Indeterminate)
                 self.performSegueWithIdentifier("LoggedIn", sender: self)
+                self.toLoginIn()
             }
         }
         
@@ -67,6 +72,11 @@ class StudentLoginViewController: UIViewController {
         self.userTextfield.resignFirstResponder()
     }
     
-        
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
+        StudentCourse.currentCourse = nil
+        FaceHelper.drop()
+        StudentCourseHelper.drop()
+        StudentAuthenticationHelper.drop()
+    }
        
 }

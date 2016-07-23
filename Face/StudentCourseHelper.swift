@@ -11,7 +11,11 @@ class StudentCourseHelper{
         }
     }
     
-    
+    var checkInToken = ""
+    var autoTakePhoto = false
+    static func drop(){
+        _defaultHelper = nil
+    }
     func getAsksForLeave(course: StudentCourse, completionHandler: ResponseMessageHandler) {
         let auth = StudentAuthenticationHelper.defaultHelper
         auth.getResponse(RequestType.GET_ASKS_FOR_LEAVE, method: .GET, argsOrBody: [:], courseIdRequired: true){
@@ -76,6 +80,34 @@ class StudentCourseHelper{
             completionHandler(error: error)
         }
     }
+    
+    func getCheckInToken(qrCode: String, completionHandler: ResponseMessageHandler){
+        let auth = StudentAuthenticationHelper.defaultHelper
+        auth.getResponse(RequestType.VERIFY_QR_CODE, method: .GET, argsOrBody: ["code": qrCode]){
+            [unowned self]
+            error, json in
+            if error == nil{
+                self.checkInToken = json["check_in_token"].stringValue
+            }
+            else{
+                self.checkInToken = ""
+            }
+            completionHandler(error: error)
+        }
+    }
+
+    func checkIn(course: StudentCourse, img: UIImage, completionHandler: ResponseHandler){
+        let auth = StudentAuthenticationHelper.defaultHelper
+        auth.postImage(RequestType.CHECK_IN, image: img, courseIdRequired: true, checkInToken: self.checkInToken){
+            [unowned self]
+            error, json in
+            if error == nil{
+                self.checkInToken = ""
+            }
+            completionHandler(error: error, json: json)
+        }
+    }
+   
     
        
 }

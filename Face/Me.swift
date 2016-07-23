@@ -12,6 +12,8 @@ class Student {
     var studentId:String
     var gender: Bool
     var name:String
+    var email: String!
+    var emailActivated: Bool!
     var className:String
     var tel:String
     var majorName:String
@@ -48,7 +50,6 @@ class Student {
             self.newStatusAsks.append(AskForLeave(json: askDict))
         }
         
-        
-        self.courses.sortInPlace({$0.asks.count > $1.asks.count})
+       self.courses.sortInPlace({$0.asks.count > $1.asks.count})
     }
 }
